@@ -17,9 +17,19 @@ enable :sessions
 
 $redis = Redis.new
 
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  username == ENV.fetch("AUTH_USERNAME") and password ==  ENV.fetch("AUTH_PASSWORD")
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV.fetch("AUTH_USERNAME"), ENV.fetch("AUTH_PASSWORD")]
+  end
 end
+
 
 # Add a get method so that we don't reveal Sinatra basic page
 get '/' do
@@ -29,7 +39,7 @@ get '/' do
 end
 
 post '/provision' do
-  authenticate!
+  protected!
   payload = JSON.parse(request.body.read)
   logger.info "PROVISION #{payload['quicknode-id']} #{payload['endpoint-id']}"
 
@@ -75,7 +85,7 @@ post '/provision' do
 end
 
 put '/update' do
-  authenticate!
+  protected!
   payload = JSON.parse(request.body.read)
   logger.info "UPDATE #{payload['quicknode-id']} #{payload['endpoint-id']}"
 
@@ -115,7 +125,7 @@ put '/update' do
 end
 
 delete '/deprovision' do
-  authenticate!
+  protected!
   payload = JSON.parse(request.body.read)
   logger.info "DEPROVISION #{payload['quicknode-id']} #{payload['endpoint-id']}"
 
@@ -136,7 +146,7 @@ delete '/deprovision' do
 end
 
 delete '/deactivate_endpoint' do
-  authenticate!
+  protected!
   payload = JSON.parse(request.body.read)
   logger.info "DEACTIVATE ENDPOINT #{payload['quicknode-id']} #{payload['endpoint-id']}"
   logger.info payload
