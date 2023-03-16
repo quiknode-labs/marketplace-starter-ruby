@@ -204,7 +204,7 @@ get "/api/:id" do
   end
 end
 
-get "/healthz" do
+get "/healthcheck" do
   Account.all # here to make sure db is up
   "OK"
 end
