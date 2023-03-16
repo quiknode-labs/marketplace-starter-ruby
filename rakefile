@@ -1,0 +1,12 @@
+namespace :db do
+  desc "Run migrations"
+  task :migrate, [:version] do |t, args|
+    require "sequel/core"
+    require "dotenv/load"
+    Sequel.extension :migration
+    version = args[:version].to_i if args[:version]
+    Sequel.connect(ENV.fetch("DB_URL")) do |db|
+      Sequel::Migrator.run(db, "db", target: version)
+    end
+  end
+end

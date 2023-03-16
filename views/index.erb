@@ -1,0 +1,9 @@
+<p class="mt-2 text-base text-gray-500">
+The following <%= @accounts.size %> accounts were provisioned for [Your Add On].
+</p>
+
+<ul class="mt-2 list-outside">
+  <% @accounts.each do |account| %>
+    <li class="w-full py-3 pl-4 text-sm font-medium text-gray-900"><%= account.quicknode_id %> on <%= account.plan_slug %> plan</li>
+  <% end %>
+</ul>

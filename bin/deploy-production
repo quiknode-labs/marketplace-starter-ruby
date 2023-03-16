@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+echo ""
+echo The following commits will be deployed:
+# --no-pager is an option on the git command itself, it will prevent opening this in a pager
+# and blocking the script
+git --no-pager log $(git describe --tags --abbrev=0)..HEAD --oneline
+
+echo ""
+
+echo -n "Really deploy to heroku? [yes/no]: "
+read CHOICE
+if [ "$CHOICE" != "yes" ]; then
+  echo "Halting!"
+  exit
+fi
+
+echo Tagging Code...
+git tag yield-curve-`date "+%Y-%m-%d-%H-%M"` main
+
+echo Pushing Tags to Github...
+(git push  --tags origin main || exit)
+
+echo Pushing Code...
+git push heroku main
+
+echo DONE...
