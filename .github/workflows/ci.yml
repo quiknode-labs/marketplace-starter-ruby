@@ -31,9 +31,10 @@ jobs:
           path: webapp
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.1
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          path: webapp
 
       - name: Create .env file
         run: |
