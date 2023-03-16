@@ -1,24 +1,17 @@
-# Ruby Starter code
+# Quicknode Marketplace Starter Code - Ruby
 
-This is a sample QuickNode Marketplace application built on top
-of [Sinatra](https://sinatrarb.com/) and [postgres](https://www.postgresql.org/).
+This is a sample [QuickNode Marketplace](https://quicknode.com/marketplace) add-on built on top
+of Sinatra and PostgreSQL.
 
-It implements the 4 routes that a partner needs to [integrate with Marketplace](https://www.notion.so/quicknode/Marketplace-Integration-Overview-f272bbbfac364cbdae70566984de77bf):
+It implements the 4 provisioning routes that a partner needs to [integrate with Marketplace](https://www.quicknode.com/guides/quicknode-products/marketplace/how-provisioning-works-for-marketplace-partners/), as well as the required Healthcheck route.
 
-- `POST /provision`
-- `PUT /update`
-- `DELETE /deactivate`
-- `DELETE /deprovision`
+It also has support for:
 
-It uses postgres to store/update provisioned endpoints.
+- [RPC methods](https://www.quicknode.com/guides/quicknode-products/marketplace/how-to-create-an-rpc-add-on-for-marketplace/) via a `POST /rpc` route
+- [A dashboard view](https://www.quicknode.com/guides/quicknode-products/marketplace/how-sso-works-for-marketplace-partners/) with Single Sign On using JSON Web Tokens (JWT).
 
-It also has additional routes for optional features:
 
-- `POST /rpc` - JSON RPC proxy
-- `GET /dash` - shows info about the endpoint that was provisioned.
-- `GET /api/:id` - a JSON API returning the data you want to fetch.
-
-## Installation
+## Getting Started
 
 To run locally:
 
