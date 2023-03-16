@@ -79,8 +79,8 @@ post '/provision' do
     # "dashboard_url": nil,
     # "access_url": nil
     # Only set these if you have features for them
-    "dashboard-url": "http://#{ENV['host']}/dash",
-    "access-url": "http://#{ENV['host']}/api/#{payload['quicknode-id']}.json"
+    "dashboard-url": "http:///#{ENV['HOST']}:#{ENV['PORT']}/dashboard",
+    "access-url": "http://#{ENV['HOST']}:#{ENV['PORT']}/api/#{payload['quicknode-id']}.json"
   }.to_json
 end
 
@@ -169,7 +169,7 @@ delete '/deactivate_endpoint' do
   }.to_json
 end
 
-get "/dash" do
+get "/dashboard" do
   content_type :html
 
   token = params['jwt']
