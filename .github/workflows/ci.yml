@@ -77,7 +77,7 @@ jobs:
         run: ./cli/qn-marketplace-cli pudd --base-url http://localhost:3005 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test RPC
-        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3005/provision --rpc-url http://localhost:3005/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
+        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3005/provision --rpc-url http://localhost:3005/rpc --rpc-method bb_getAddress --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test SSO
         run: ./cli/qn-marketplace-cli sso --url http://localhost:3005/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode

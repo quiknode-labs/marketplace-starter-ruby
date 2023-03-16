@@ -242,6 +242,7 @@ post "/rpc" do
       JSONRPCHandler::handle_method_call(item, chain, network)
     end
   else
+
     response = JSONRPCHandler::handle_method_call(payload, chain, network)
   end
   response.to_json
