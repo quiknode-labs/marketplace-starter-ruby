@@ -79,8 +79,8 @@ post '/provision' do
     # "dashboard_url": nil,
     # "access_url": nil
     # Only set these if you have features for them
-    "dashboard-url": "http://#{ENV['host']}/dash",
-    "access-url": "http://#{ENV['host']}/api/#{payload['quicknode-id']}.json"
+    "dashboard-url": "http://localhost:3005/dashboard",
+    "access-url": "http://localhost:3005/api/#{payload['quicknode-id']}.json"
   }.to_json
 end
 
@@ -169,7 +169,7 @@ delete '/deactivate_endpoint' do
   }.to_json
 end
 
-get "/dash" do
+get "/dashboard" do
   content_type :html
 
   token = params['jwt']
@@ -204,7 +204,7 @@ get "/api/:id" do
   end
 end
 
-get "/healthz" do
+get "/healthcheck" do
   Account.all # here to make sure db is up
   "OK"
 end
@@ -242,6 +242,7 @@ post "/rpc" do
       JSONRPCHandler::handle_method_call(item, chain, network)
     end
   else
+
     response = JSONRPCHandler::handle_method_call(payload, chain, network)
   end
   response.to_json
