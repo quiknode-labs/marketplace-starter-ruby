@@ -79,8 +79,8 @@ post '/provision' do
     # "dashboard_url": nil,
     # "access_url": nil
     # Only set these if you have features for them
-    "dashboard-url": "http:///#{ENV['HOST']}:#{ENV['PORT']}/dashboard",
-    "access-url": "http://#{ENV['HOST']}:#{ENV['PORT']}/api/#{payload['quicknode-id']}.json"
+    "dashboard-url": "http://localhost:3005/dashboard",
+    "access-url": "http://localhost:3005/api/#{payload['quicknode-id']}.json"
   }.to_json
 end
 
