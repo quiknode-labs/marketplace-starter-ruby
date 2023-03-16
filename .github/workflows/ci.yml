@@ -1,8 +1,12 @@
-name: marketplace tests
+name: qn-marketplace-cli tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -42,12 +46,10 @@ jobs:
           EOL
 
       - name: Install foreman
-        run: |
-          gem install foreman
+        run: gem install foreman
 
       - name: Migrate database
-        run: |
-          cd webapp && rake db:migrate
+        run: cd webapp && rake db:migrate
 
       - name: Start the web app in the background
         run: |
